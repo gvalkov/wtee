@@ -1,0 +1,12 @@
+{
+  "name": "wtee",
+  "private": true,
+  "dependencies": {
+    "jquery": "2.1.4",
+    "jquery-typewatch": "2.2.2",
+    "html5shiv": "3.7.3",
+    "normalize-css": "4.2.0",
+    "sockjs-client": "1.1.1",
+    "spinjs": "2.3.2"
+  }
+}

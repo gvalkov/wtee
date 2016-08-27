@@ -1,0 +1,135 @@
+@import 'vars.scss';
+@import 'base.scss';
+
+
+body {
+  font: 13px/1.5 'Helvetica Neue',Arial,'Liberation Sans',FreeSans,sans-serif;
+  overflow: hidden;
+  height: 100vh;
+  background-color: $tailon-logview-background-color;
+  width:100%;
+}
+
+#configuration {
+  position: absolute;
+  top: 5px;
+  right: 15px;
+}
+
+#action-show-settings {
+  position: absolute;
+  top: 5px;
+  right: 15px;
+}
+
+#minimized-action-bar {
+  position: absolute;
+  top: 3px;
+  right: 8px;
+}
+
+@mixin selected-placeholder($color: $tailon-toolbar-input-background-color) {
+  background: $color;
+  text-shadow: none;
+}
+
+
+//----------------------------------------------------------------------------
+// Log view style.
+//----------------------------------------------------------------------------
+.scrollable {
+  height: 100%;
+  word-break: break-all;
+  white-space: nowrap;
+  overflow: auto;
+}
+
+.log-view {
+  font-family: $ttfonts;
+  font-size: $tailon-logview-font-size;
+  line-height: 1.3;
+  padding-top: 2px;
+  color: $tailon-logview-text-color;
+  background-color: $tailon-logview-background-color;
+
+  .log-entry {
+    display: block;
+  }
+
+  .log-entry-current {
+    background: $tailon-logview-current-line-background-color;
+  }
+
+  .log-notice {
+    background: $tailon-logview-notice-background-color;
+    color: $tailon-logview-notice-color;
+    text-align: center;
+    font-weight: bold;
+  }
+}
+
+.log-view-wrapped {
+  white-space: normal;
+}
+
+
+.log-view ::selection {
+  @include selected-placeholder();
+}
+
+input::selection {
+  @include selected-placeholder(darken(#373b41, 40%));
+  color: white;
+}
+
+input::placeholder {
+  color: #c5c8c6;
+  font-style: italic;
+  text-align: center;
+}
+
+//----------------------------------------------------------------------------
+// Configuration dialog styles
+//----------------------------------------------------------------------------
+#configuration {
+  position: fixed;
+  display:none;
+  top: 40px;
+  right: 15px;
+  background: $tailon-toolbar-input-background-color;
+  z-index:9999;
+
+  border: 5px solid $tailon-toolbar-background-color;
+  box-sizing: border-box;
+  box-shadow: 2px 2px 2px 0px darken($tailon-toolbar-input-background-color, 10%);
+
+  form {
+    padding: 10px;
+    display: table;
+    font-family: $ttfonts;
+    font-size: 14px;
+    color: #c5c8c6;
+  }
+
+  p {
+    display: table-row;
+    /* background-color: $tailon-toolbar-background-color; */
+  }
+
+  label, input {
+    margin-top: 2px;
+    display: table-cell;
+  }
+
+  label {
+    border: none;
+  }
+
+  input {
+    margin-left: 20px;
+    border: none;
+    width: 80px;
+    text-align: right;
+    vertical-align: middle;
+  }
+}

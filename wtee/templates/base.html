@@ -1,0 +1,46 @@
+<!doctype html>
+<html class="no-js" lang="">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>{% block title %}Title{% end %}</title>
+    <meta name="description" content="{% block description %}Description{% end %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="assets/favicon.ico?v=2" />
+
+    <!-- WEBASSETS CSS -->
+        <link rel='stylesheet' href='{{root}}assets/vendor/normalize-css/normalize.css'>
+        <link rel='stylesheet' href='{{root}}assets/gen/main.css?22cfdc7f'>
+    <!-- WEBASSETS CSS -->
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <script>window.html5 || document.write('<script src="{{root}}assets/js/vendor/html5shiv.js"><\/script>')</script>
+    <![endif]-->
+</head>
+
+<body>
+<!--[if lt IE 8]>
+<p class="browserupgrade">
+    You are using an <strong>outdated</strong> browser.
+    Please <a href="http://browsehappy.com/">upgrade your browser</a> to
+    improve your experience.
+</p>
+<![endif]-->
+<script>
+         var clientConfig = {% raw client_config %};
+         var relativeRoot = "{{root}}";
+        </script>
+
+{% block body %}{% end %}
+
+<!-- WEBASSETS JS -->
+        <script src='{{root}}assets/vendor/jquery/dist/jquery.js'></script>
+        <script src='{{root}}assets/vendor/sockjs-client/dist/sockjs.js'></script>
+        <script src='{{root}}assets/vendor/jquery-typewatch/jquery.typewatch.js'></script>
+        <script src='{{root}}assets/vendor/html5shiv/dist/html5shiv.js'></script>
+        <script src='{{root}}assets/vendor/spinjs/spin.js'></script>
+        <script src='{{root}}assets/gen/Main.js'></script>
+<!-- WEBASSETS JS -->
+</body>
+</html>

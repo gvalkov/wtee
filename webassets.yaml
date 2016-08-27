@@ -1,0 +1,43 @@
+directory: wtee/assets
+url: assets/
+versions: hash
+url_expire: true
+debug: false
+config:
+    debug_info: false
+    # Path is relative to wtee/assets/scss.
+    autoprefixer_bin: ../../../node_modules/postcss-cli/bin/postcss
+    typescript_bin:   node_modules/typescript/bin/tsc
+    pyscss_debug_info: false
+
+bundles:
+  external-js:
+    filters: jsmin
+    output: gen/3rdparty.js
+    contents:
+      - vendor/jquery/dist/jquery.js
+      - vendor/sockjs-client/dist/sockjs.js
+      - vendor/jquery-typewatch/jquery.typewatch.js
+      - vendor/html5shiv/dist/html5shiv.js
+      - vendor/spinjs/spin.js
+
+  external-css:
+    filters: cssmin
+    output: gen/3rdparty.css
+    contents:
+      - vendor/normalize-css/normalize.css
+
+  internal-js:
+    filters: rmconsole,jsmin
+    output: gen/Main.min.js
+    contents:
+      - gen/Main.js
+
+  internal-css:
+    filters: pyscss,autoprefixer6,cssmin
+    output:  gen/main.css
+    depends:
+      - scss/vars.scss
+      - scss/base.scss
+    contents:
+      - scss/main.scss
