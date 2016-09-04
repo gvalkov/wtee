@@ -74,6 +74,7 @@ class WebsocketWTee(sockjs.tornado.SockJSConnection):
                     self.last_line = []
 
         self.stdout_buffer.write(data)
+        self.stdout_buffer.flush()
         self.write_json(lines)
 
     def on_close(self):
