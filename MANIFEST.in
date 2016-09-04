@@ -1,0 +1,8 @@
+include README.rst
+include LICENSE
+include wtee/assets/*.svg
+include wtee/assets/*.ico
+recursive-include wtee/assets/gen *
+recursive-include wtee/templates *
+prune wtee/assets/scss
+prune wtee/assets/.sass-cache

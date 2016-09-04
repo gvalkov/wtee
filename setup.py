@@ -9,13 +9,11 @@ classifiers = [
     'Programming Language :: Python :: 3',
     'License :: OSI Approved :: BSD License',
     'Intended Audience :: Developers',
-    'Operating System :: POSIX :: Linux',
 ]
 
 requirements = [
-    'tornado>=4.3',
+    'tornado>=4.4.1',
     'sockjs-tornado>=1.0.3',
-    'PyYAML>=3.11',
 ]
 
 kw = {
@@ -35,7 +33,7 @@ kw = {
     'zip_safe': True,
     'entry_points': {
         'console_scripts': [
-            'wtee = wtee.main:main_wtee'
+            'wtee = wtee.main:main'
         ]
     },
 }
