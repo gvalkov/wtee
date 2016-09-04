@@ -56,7 +56,7 @@ def parseopts(args=None):
     '''
 
     epilog = '''
-    Example command-line:
+    Example command-line usage:
       tail -f /var/log/debug | wtee -b localhost:8080 | nl
     '''
 
@@ -139,4 +139,8 @@ def main(argv=sys.argv):
     }
 
     application = server.WTeeApplication(config, client_config, template_dir, assets_dir)
-    start_server(application, config, client_config)
+
+    try:
+        start_server(application, config, client_config)
+    except KeyboardInterrupt:
+        ioloop.IOLoop.instance().stop()
