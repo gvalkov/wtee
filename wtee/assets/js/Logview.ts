@@ -82,6 +82,11 @@ class LogView {
             for (var i=0; i<message.length; i++) {
                 var line = Utils.escapeHtml(message[i]);
                 line = line.replace(/\n$/, '');
+
+                // TODO: Need a css only solution.
+                if (line === '') {
+                    line = '&zwnj;';
+                }
                 spans.push(this.createLogEntrySpan(line));
             }
         } else if ('err' in message) {
