@@ -77,6 +77,10 @@ class WebsocketWTee(sockjs.tornado.SockJSConnection):
         self.stdout_buffer.flush()
         self.write_json(lines)
 
+        if data == b'':
+            log.debug('stdin closed')
+            io_loop.remove_handler(self.stdin_buffer)
+
     def on_close(self):
         self.connected = False
         io_loop.remove_handler(sys.stdin)
