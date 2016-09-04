@@ -28,6 +28,28 @@ body {
   right: 8px;
 }
 
+.icon {
+  display: inline-block;
+  vertical-align: top;
+  overflow: hidden;
+  margin: 4px;
+  width: 25px;
+  height: 25px;
+  font-size: 0;
+  text-indent: -9999px;
+
+  opacity: 0.5;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 1.0;
+  }
+}
+
+.fully-opaque {
+  opacity: 1.0;
+}
+
 @mixin selected-placeholder($color: $tailon-toolbar-input-background-color) {
   background: $color;
   text-shadow: none;

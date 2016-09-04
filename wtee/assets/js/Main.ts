@@ -80,8 +80,10 @@ backend.onMessage.addCallback(function(message) {
 //-----------------------------------------------------------------------------
 // Configuration
 $('#action-show-settings a').click(function() {
+    $(this).toggleClass('fully-opaque');
     $('#configuration').toggle();
 });
+
 
 var watch_options = {
     wait: 500,
