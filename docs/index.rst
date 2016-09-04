@@ -1,10 +1,15 @@
 Wtee
 ======
 
-Much like the unix ``tee`` utility, *wtee* duplicates standard input to standard
+Much like the unix ``tee`` utility, wtee duplicates standard input to standard
 output, while also making the piped data viewable on a web page. For example::
 
   tail -f /var/log/debug | wtee | nl
+
+.. thumbnail:: screenshot.png
+   :width: 100%
+   :group: screenshots
+   :alt:   Wtee
 
 
 Installation
@@ -16,7 +21,7 @@ The latest stable versions of wtee can be installed from pypi_:
 
     $ pip install wtee
 
-The development versions are available on github_ and can also be
+The development version is available on github_ and can also be
 installed with the help of pip:
 
 .. code-block:: bash
@@ -35,7 +40,9 @@ The wtee tool does two things:
 - Duplicates standard input to standard output.
 - Starts a local http server on which the piped data can be viewed.
 
-Wtee's server-side functionality is summarized in its help message::
+Wtee's server-side functionality is summarized in its help message:
+
+.. code-block:: none
 
   Usage: wtee [-h] [-d] [-v] [--output-encoding enc] [--input-encoding enc]
             [-b addr:port] [-r path] [--no-wrap-lines]
@@ -56,7 +63,7 @@ Wtee's server-side functionality is summarized in its help message::
   User-interface options:
     --no-wrap-lines           initial line-wrapping state (default: true)
 
-  Example command-line:
+  Example command-line usage:
     tail -f /var/log/debug | wtee -b localhost:8080 | nl
 
 
@@ -93,13 +100,13 @@ Nginx
 Attributions
 ------------
 
-Wtee and favicon was created from this_ icon.
+Wtee's favicon was created from this_ icon.
 
 
 License
 -------
 
-Wtee and wtee are released under the terms of the `Revised BSD License`_.
+Wtee is released under the terms of the `Revised BSD License`_.
 
 
 .. _pypi:      http://pypi.python.org/pypi/wtee
