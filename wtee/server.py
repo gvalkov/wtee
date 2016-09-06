@@ -29,7 +29,6 @@ class Index(BaseHandler):
             'root': self.config['relative-root'],
             'client_config': escape.json_encode(self.client_config),
         }
-
         self.render(self.template, **ctx)
 
 
@@ -41,21 +40,36 @@ class NonCachingStaticFileHandler(web.StaticFileHandler):
 class WebsocketWTee(sockjs.tornado.SockJSConnection):
     def __init__(self, *args, **kw):
         super(WebsocketWTee, self).__init__(*args, **kw)
-
-        self.last_line = []
-        self.config = self.application.config
-        self.connected = False
-
-        # This is for compatibility between Python 2 and 3.
-        self.stdin_buffer  = getattr(sys.stdin, 'buffer', sys.stdin)
-        self.stdout_buffer = getattr(sys.stdout, 'buffer', sys.stdout)
-
-        fl = fcntl.fcntl(sys.stdin, fcntl.F_GETFL)
-        fcntl.fcntl(sys.stdin, fcntl.F_SETFL, fl | os.O_NONBLOCK)
+        self.clients = self.application.sockjs_clients
+        self.stdio_handler = self.application.stdio_handler
 
     def on_open(self, info):
-        self.connected = True
+        self.clients.add(self)
+        if not self.stdio_handler.stdin_closed and len(self.clients) == 1:
+            log.debug('First client connected - adding stdin listener')
+            self.stdio_handler.enable_stdin_handler()
+
+    def on_close(self):
+        self.clients.remove(self)
+        if not self.stdio_handler.stdin_closed and not self.clients:
+            log.debug('No more clients - removing stdin listener')
+            self.stdio_handler.disable_stdin_handler()
+
+
+class StdioHandler:
+    def __init__(self, clients, broadcast_func):
+        self.clients = clients
+        self.broadcast = broadcast_func
+
+        self.last_line = []
+        self.stdin_buffer, self.stdout_buffer = self.open_fds()
+        self.stdin_closed = False
+
+    def enable_stdin_handler(self):
         io_loop.add_handler(self.stdin_buffer, self.on_stdin, io_loop.READ)
+
+    def disable_stdin_handler(self):
+        io_loop.remove_handler(self.stdin_buffer)
 
     def on_stdin(self, fd, events):
         data = fd.read()
@@ -73,21 +87,24 @@ class WebsocketWTee(sockjs.tornado.SockJSConnection):
                     lines[0] = ''.join(self.last_line) + lines[0]
                     self.last_line = []
 
+        self.broadcast(self.clients, escape.json_encode(lines))
         self.stdout_buffer.write(data)
         self.stdout_buffer.flush()
-        self.write_json(lines)
 
-        if data == b'':
+        # TODO: Empty string and None mean different things with os.O_NONBLOCK.
+        if not data:
             log.debug('stdin closed')
-            io_loop.remove_handler(self.stdin_buffer)
+            self.stdin_closed = True
+            self.disable_stdin_handler()
 
-    def on_close(self):
-        self.connected = False
-        io_loop.remove_handler(sys.stdin)
-        log.debug('connection closed')
+    def open_fds(self, stdin=sys.stdin, stdout=sys.stdout):
+        # This is for compatibility between Python 2 and 3.
+        stdin_buffer  = getattr(stdin, 'buffer', stdin)
+        stdout_buffer = getattr(stdout, 'buffer', stdout)
 
-    def write_json(self, data):
-        return self.send(escape.json_encode(data))
+        fl = fcntl.fcntl(stdin, fcntl.F_GETFL)
+        fcntl.fcntl(stdin, fcntl.F_SETFL, fl | os.O_NONBLOCK)
+        return stdin_buffer, stdout_buffer
 
 
 class WTeeApplication(web.Application):
@@ -120,12 +137,15 @@ class WTeeApplication(web.Application):
 
         routes, self.ws_handler = self.setup_routes()
 
-        # Tornado wants routes to be a list of tuples.
+        # Tornado expects routes to be a list of tuples.
         for n, route in enumerate(routes):
             if isinstance(routes[n], tuple):
                 continue
             route[0] = os.path.join('/', self.relative_root, route[0].lstrip('/'))
             routes[n] = tuple(route)
+
+        self.sockjs_clients = set()
+        self.stdio_handler = StdioHandler(self.sockjs_clients, self.ws_handler.broadcast)
 
         settings = {
             'static_path': assets_dir,
