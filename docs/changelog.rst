@@ -1,6 +1,11 @@
 Changelog
 ---------
 
+1.1.0
+===========
+
+- Fix handling of multiple connections.
+
 
 1.0.0
 ===========

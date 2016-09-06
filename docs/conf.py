@@ -21,7 +21,7 @@ master_doc = 'index'
 project = u'wtee'
 copyright = u'2013-2016, Georgi Valkov'
 
-release = '1.0.0'
+release = '1.0.1'
 version = release
 
 exclude_patterns = ['_build']

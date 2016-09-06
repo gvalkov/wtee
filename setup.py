@@ -18,7 +18,7 @@ requirements = [
 
 kw = {
     'name':             'wtee',
-    'version':          '1.0.0',
+    'version':          '1.0.1',
     'description':      'read from stdin, write to stdout and serve on a webpage',
     'long_description': open('README.rst').read(),
     'author':           'Georgi Valkov',
