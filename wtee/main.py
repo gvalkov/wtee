@@ -20,7 +20,7 @@ __version__ = '1.0.0'
 
 #-----------------------------------------------------------------------------
 # Setup Logging
-log = logging.getLogger('wtee')
+log = logging.getLogger()
 ch = logging.StreamHandler()
 ft = logging.Formatter('[+%(relativeCreated)f][%(levelname)5s] %(message)s')
 
