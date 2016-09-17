@@ -28,9 +28,15 @@ installed with the help of pip:
 
     $ pip install git+git://github.com/gvalkov/wtee.git
 
+A self-contained executable requiring only Python is also provided (built with
+pex_):
+
+.. code-block:: bash
+
+   wget https://github.com/gvalkov/wtee/releases/download/v1.0.1/wtee
+
 Wtee works with Python 2.7 and newer. Using it with Python >= 3.3 is
 encouraged.
-
 
 Usage
 ~~~~~
@@ -113,3 +119,4 @@ Wtee is released under the terms of the `Revised BSD License`_.
 .. _github:    https://github.com/gvalkov/wtee
 .. _this:      http://www.iconfinder.com/icondetails/15150/48/terminal_icon
 .. _`Revised BSD License`: https://raw.github.com/gvalkov/wtee/master/LICENSE
+.. _Pex:       https://pex.readthedocs.io/en/stable/whatispex.html
