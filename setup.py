@@ -12,8 +12,8 @@ classifiers = [
 ]
 
 requirements = [
-    'tornado>=4.4.1',
-    'sockjs-tornado>=1.0.3',
+    'tornado>=4.0.0',
+    'sockjs-tornado>=1.0.0',
 ]
 
 kw = {
