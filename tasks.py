@@ -40,11 +40,6 @@ def cleanstatic(ctx):
         print('unkink: %s' % path)
         path.unlink()
 
-@task
-def install_typings(ctx):
-
-    cmd = './node_modules/typings/dist/bin.js install'
-
 
 @task
 def compile_typescript(ctx, debug=False):
