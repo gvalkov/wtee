@@ -62,7 +62,7 @@ body {
 .scrollable {
   height: 100%;
   word-break: break-all;
-  white-space: nowrap;
+  white-space: pre;
   overflow: auto;
 }
 
@@ -91,7 +91,7 @@ body {
 }
 
 .log-view-wrapped {
-  white-space: normal;
+  white-space: pre-wrap;
 }
 
 
