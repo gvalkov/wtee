@@ -57,9 +57,10 @@ class WebsocketWTee(sockjs.tornado.SockJSConnection):
 
 
 class StdioHandler:
-    def __init__(self, clients, broadcast_func):
+    def __init__(self, clients, broadcast_func, application_config):
         self.clients = clients
         self.broadcast = broadcast_func
+        self.application_config = application_config
 
         self.last_line = []
         self.stdin_buffer, self.stdout_buffer = self.open_fds()
@@ -75,8 +76,7 @@ class StdioHandler:
         data = fd.read()
         lines = data.splitlines(True)
 
-        # TODO: Use the value of '--input-encoding' here.
-        decoded_data = data.decode('utf8', errors='replace')
+        decoded_data = data.decode(self.application_config["input-encoding"], errors='replace')
         lines = decoded_data.splitlines(True)
         if lines:
             if not lines[-1].endswith('\n'):
@@ -145,7 +145,7 @@ class WTeeApplication(web.Application):
             routes[n] = tuple(route)
 
         self.sockjs_clients = set()
-        self.stdio_handler = StdioHandler(self.sockjs_clients, self.ws_handler.broadcast)
+        self.stdio_handler = StdioHandler(self.sockjs_clients, self.ws_handler.broadcast, config)
 
         settings = {
             'static_path': assets_dir,
