@@ -15,7 +15,7 @@ from tornado import ioloop, httpserver
 from . import server
 from . import utils
 
-__version__ = '1.1.1'
+__version__ = '1.2.0'
 
 
 #-----------------------------------------------------------------------------
