@@ -72,8 +72,8 @@ def parseopts(args=None):
     arg('-h', '--help',      action='help',       help='show this help message and exit')
     arg('-d', '--debug',     action='store_true', help='show debug messages')
     arg('-v', '--version',   action='version',    version='wtee version %s' % __version__)
-    arg('--output-encoding', dest='output_encoding', metavar='enc', help="encoding for output")
-    arg('--input-encoding',  dest='input_encoding',  metavar='enc', default='utf8', help='encoding for input and output (default utf8)')
+    arg('--output-encoding', metavar='enc', help="encoding for output")
+    arg('--input-encoding',  metavar='enc', default='utf8', help='encoding for input and output (default: utf8)')
 
     group = parser.add_argument_group('Server options')
     arg = group.add_argument
