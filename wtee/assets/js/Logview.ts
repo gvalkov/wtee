@@ -27,19 +27,12 @@ class LogView {
         this.$container.toggleClass('log-view-wrapped', this.settings.get<boolean>('wrapLines'));
     }
 
-    createSpan(inner_html: string, class_names: string) {
-        let span: HTMLElement = document.createElement('span');
-        span.innerHTML = inner_html;
-        span.className = class_names;
-        return span
-    }
-
     createLogEntrySpan(inner_html: string) {
-        return this.createSpan(inner_html, this.logEntryClass);
+        return Utils.createSpan(inner_html, this.logEntryClass);
     }
 
     createLogNoticeSpan(inner_html: string) {
-        return this.createSpan(inner_html, this.logNoticeClass);
+        return Utils.createSpan(inner_html, this.logNoticeClass);
     }
 
     writeSpans(spans: HTMLElement[]) {
