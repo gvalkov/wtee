@@ -7,6 +7,7 @@
 /// <reference path="../vendor/typings/spin.d.ts" />
 
 /// <reference path="Utils.ts" />
+/// <reference path="Parser.ts" />
 /// <reference path="Backend.ts" />
 /// <reference path="Logview.ts" />
 /// <reference path="Settings.ts" />

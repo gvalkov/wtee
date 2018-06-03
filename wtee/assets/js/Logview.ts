@@ -1,6 +1,7 @@
 class LogView {
     $container: JQuery;
     containerParent: HTMLElement;
+    parser: Parser;
 
     history: HTMLElement[];
     autoScroll: boolean;
@@ -16,6 +17,7 @@ class LogView {
     ) {
         this.$container = $(container);
         this.containerParent = container.parentElement;
+        this.parser = new Parser();
 
         this.history = [];
         this.autoScroll = true;
@@ -72,14 +74,19 @@ class LogView {
         // Just a list of lines that we write to the logview.
         if (Array.isArray(message)) {
             for (var i=0; i<message.length; i++) {
-                var line = Utils.escapeHtml(message[i]);
-                line = line.replace(/\n$/, '');
+                var line = message[i].replace(/\n$/, '');
 
                 // TODO: Need a css only solution.
                 if (line === '') {
-                    line = '&zwnj;';
+                    spans.push(this.createLogEntrySpan('&zwnj;'));
+                    continue;
                 }
-                spans.push(this.createLogEntrySpan(line));
+                let parsedSpans = this.parser.parseLine(line);
+                let entrySpan = this.createLogEntrySpan('');
+                parsedSpans.forEach(function(span) {
+                    entrySpan.appendChild(span);
+                });
+                spans.push(entrySpan);
             }
         } else if ('err' in message) {
             for (var i=0; i<message['err'].length; i++) {
