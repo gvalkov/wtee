@@ -29,6 +29,14 @@ class LogView {
         this.$container.toggleClass('log-view-wrapped', this.settings.get<boolean>('wrapLines'));
     }
 
+    toggleHideEscapeCodes() {
+        this.$container.toggleClass('log-view-hide-escape', this.settings.get<boolean>('hideEscapeCodes'));
+    }
+
+    toggleEnableColors() {
+        this.$container.toggleClass('log-view-enable-colors', this.settings.get<boolean>('enableColors'));
+    }
+
     createLogEntrySpan(inner_html: string) {
         return Utils.createSpan(inner_html, this.logEntryClass);
     }

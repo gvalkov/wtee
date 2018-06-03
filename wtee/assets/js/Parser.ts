@@ -55,6 +55,7 @@ class Parser {
             this.setAttribute(parseInt(a) || 0);
           }
         }
+        parsedSpans.push(Utils.createSpan(Utils.escapeHtml(substring), 'esc'));
       } else {
         let escCodes = this.textAttributes.slice();  // copy array
         if (this.foreground) {
