@@ -40,6 +40,13 @@ module Utils {
         });
     }
 
+    export function createSpan(inner_html: string, class_names: string) {
+        let span: HTMLElement = document.createElement('span');
+        span.innerHTML = inner_html;
+        span.className = class_names;
+        return span;
+    }
+
     interface Callable {
         (T): any;
     }

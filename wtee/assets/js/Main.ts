@@ -7,6 +7,7 @@
 /// <reference path="../vendor/typings/spin.d.ts" />
 
 /// <reference path="Utils.ts" />
+/// <reference path="Parser.ts" />
 /// <reference path="Backend.ts" />
 /// <reference path="Logview.ts" />
 /// <reference path="Settings.ts" />
@@ -27,6 +28,8 @@ let settings = new Settings.Settings({
     panelHidden: false,
 
     // Logview tunables.
+    hideEscapeCodes: true,
+    enableColors: true,
     wrapLines: window.clientConfig['wrap-lines-initial'],
     linesOfHistory: 2000,  // 0 for infinite history.
     linesToTail: window.clientConfig['tail-lines-initial'],  // i.e. tail -n $linesToTail.
@@ -110,6 +113,14 @@ $('#wrap-lines').click(function() {
     settings.set<boolean>('wrapLines', this.checked);
 });
 
+$('#hide-escape-codes').click(function() {
+    settings.set<boolean>('hideEscapeCodes', this.checked);
+});
+
+$('#enable-colors').click(function() {
+    settings.set<boolean>('enableColors', this.checked);
+});
+
 settings.onChange('linesOfHistory', function(lines) {
     logview.trimHistory();
 });
@@ -118,11 +129,29 @@ settings.onChange('wrapLines', function(value) {
     logview.toggleWrapLines();
 });
 
+settings.onChange('hideEscapeCodes', function(value) {
+    logview.toggleHideEscapeCodes();
+});
+
+settings.onChange('enableColors', function(value) {
+    logview.toggleEnableColors();
+});
+
 // Set initial state of "Wrap Lines" checkbox.
 $('#wrap-lines').attr('checked', settings.get('wrapLines'))
 
+// Set initial state of "Hide ANSI escape sequences" checkbox.
+$('#hide-escape-codes').attr('checked', settings.get('hideEscapeCodes'))
+
+// Set initial state of "Enable ANSI colors" checkbox.
+$('#enable-colors').attr('checked', settings.get('enableColors'))
+
 // Set initial line-wrapping state of log-view spans.
 logview.toggleWrapLines()
+// Set initial escape codes hiding state of log-view spans.
+logview.toggleHideEscapeCodes()
+// Set initial colors display state of log-view spans.
+logview.toggleEnableColors()
 
 
 function onResize() {

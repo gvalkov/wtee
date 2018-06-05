@@ -8,6 +8,8 @@ module Settings {
         numTailLines: boolean,
 
         wrapLines: boolean,
+        hideEscapeCodes: boolean,
+        enableColors: boolean,
         linesOfHistory: number,
         linesToTail: number,
 

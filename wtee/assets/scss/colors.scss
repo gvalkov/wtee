@@ -1,0 +1,120 @@
+@import 'vars.scss';
+
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+
+.log-view-hide-escape {
+  .esc {
+    display: none !important;
+  }
+}
+
+
+.log-view-enable-colors {
+  .esc-1, .esc-2 {
+    font-weight: bold;
+  }
+
+  .esc-3 {
+    font-style: italic;
+  }
+
+  .esc-4 {
+    text-decoration: underline;
+  }
+
+  .esc-5 {
+    animation:0.75s blink infinite step-end;
+    animation-direction: alternate-reverse;
+  }
+
+  .esc-6 {
+    /* no animation for fast blinking */
+  }
+
+  .esc-8 {
+    opacity: 0;
+  }
+
+  .esc-9 {
+    text-decoration: line-through;
+  }
+
+  .esc-30:not(.esc-7) { color: $color-black; }
+  .esc-31:not(.esc-7) { color: $color-red; }
+  .esc-32:not(.esc-7) { color: $color-green; }
+  .esc-33:not(.esc-7) { color: $color-yellow; }
+  .esc-34:not(.esc-7) { color: $color-blue; }
+  .esc-35:not(.esc-7) { color: $color-magenta; }
+  .esc-36:not(.esc-7) { color: $color-cyan; }
+  .esc-37:not(.esc-7) { color: $color-white; }
+  .esc-1.esc-30:not(.esc-7) { color: $color-light-black; }
+  .esc-1.esc-31:not(.esc-7) { color: $color-light-red; }
+  .esc-1.esc-32:not(.esc-7) { color: $color-light-green; }
+  .esc-1.esc-33:not(.esc-7) { color: $color-light-yellow; }
+  .esc-1.esc-34:not(.esc-7) { color: $color-light-blue; }
+  .esc-1.esc-35:not(.esc-7) { color: $color-light-magenta; }
+  .esc-1.esc-36:not(.esc-7) { color: $color-light-cyan; }
+  .esc-1.esc-37:not(.esc-7) { color: $color-light-white; }
+  .esc-2.esc-30:not(.esc-7) { color: $color-dark-black; }
+  .esc-2.esc-31:not(.esc-7) { color: $color-dark-red; }
+  .esc-2.esc-32:not(.esc-7) { color: $color-dark-green; }
+  .esc-2.esc-33:not(.esc-7) { color: $color-dark-yellow; }
+  .esc-2.esc-34:not(.esc-7) { color: $color-dark-blue; }
+  .esc-2.esc-35:not(.esc-7) { color: $color-dark-magenta; }
+  .esc-2.esc-36:not(.esc-7) { color: $color-dark-cyan; }
+  .esc-2.esc-37:not(.esc-7) { color: $color-dark-white; }
+  .esc-40:not(.esc-7) { background-color: $color-black; }
+  .esc-41:not(.esc-7) { background-color: $color-red; }
+  .esc-42:not(.esc-7) { background-color: $color-green; }
+  .esc-43:not(.esc-7) { background-color: $color-yellow; }
+  .esc-44:not(.esc-7) { background-color: $color-blue; }
+  .esc-45:not(.esc-7) { background-color: $color-magenta; }
+  .esc-46:not(.esc-7) { background-color: $color-cyan; }
+  .esc-47:not(.esc-7) { background-color: $color-white; }
+
+  .esc-7 {
+    color: $tailon-logview-background-color;
+    background-color: $tailon-logview-text-color;
+  }
+
+  .esc-7.esc-30 { background-color: $color-black; }
+  .esc-7.esc-31 { background-color: $color-red; }
+  .esc-7.esc-32 { background-color: $color-green; }
+  .esc-7.esc-33 { background-color: $color-yellow; }
+  .esc-7.esc-34 { background-color: $color-blue; }
+  .esc-7.esc-35 { background-color: $color-magenta; }
+  .esc-7.esc-36 { background-color: $color-cyan; }
+  .esc-7.esc-37 { background-color: $color-white; }
+  .esc-7.esc-1.esc-30 { background-color: $color-light-black; }
+  .esc-7.esc-1.esc-31 { background-color: $color-light-red; }
+  .esc-7.esc-1.esc-32 { background-color: $color-light-green; }
+  .esc-7.esc-1.esc-33 { background-color: $color-light-yellow; }
+  .esc-7.esc-1.esc-34 { background-color: $color-light-blue; }
+  .esc-7.esc-1.esc-35 { background-color: $color-light-magenta; }
+  .esc-7.esc-1.esc-36 { background-color: $color-light-cyan; }
+  .esc-7.esc-1.esc-37 { background-color: $color-light-white; }
+  .esc-7.esc-2.esc-30 { background-color: $color-dark-black; }
+  .esc-7.esc-2.esc-31 { background-color: $color-dark-red; }
+  .esc-7.esc-2.esc-32 { background-color: $color-dark-green; }
+  .esc-7.esc-2.esc-33 { background-color: $color-dark-yellow; }
+  .esc-7.esc-2.esc-34 { background-color: $color-dark-blue; }
+  .esc-7.esc-2.esc-35 { background-color: $color-dark-magenta; }
+  .esc-7.esc-2.esc-36 { background-color: $color-dark-cyan; }
+  .esc-7.esc-2.esc-37 { background-color: $color-dark-white; }
+  .esc-7.esc-40 { color: $color-black; }
+  .esc-7.esc-41 { color: $color-red; }
+  .esc-7.esc-42 { color: $color-green; }
+  .esc-7.esc-43 { color: $color-yellow; }
+  .esc-7.esc-44 { color: $color-blue; }
+  .esc-7.esc-45 { color: $color-magenta; }
+  .esc-7.esc-46 { color: $color-cyan; }
+  .esc-7.esc-47 { color: $color-white; }
+}

@@ -1,5 +1,6 @@
 @import 'vars.scss';
 @import 'base.scss';
+@import 'colors.scss';
 
 
 body {
@@ -76,6 +77,10 @@ body {
 
   .log-entry {
     display: block;
+
+    span {
+      display: inline-block;
+    }
   }
 
   .log-entry-current {

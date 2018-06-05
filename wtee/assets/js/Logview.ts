@@ -1,6 +1,7 @@
 class LogView {
     $container: JQuery;
     containerParent: HTMLElement;
+    parser: Parser;
 
     history: HTMLElement[];
     autoScroll: boolean;
@@ -16,6 +17,7 @@ class LogView {
     ) {
         this.$container = $(container);
         this.containerParent = container.parentElement;
+        this.parser = new Parser();
 
         this.history = [];
         this.autoScroll = true;
@@ -27,19 +29,20 @@ class LogView {
         this.$container.toggleClass('log-view-wrapped', this.settings.get<boolean>('wrapLines'));
     }
 
-    createSpan(inner_html: string, class_names: string) {
-        let span: HTMLElement = document.createElement('span');
-        span.innerHTML = inner_html;
-        span.className = class_names;
-        return span
+    toggleHideEscapeCodes() {
+        this.$container.toggleClass('log-view-hide-escape', this.settings.get<boolean>('hideEscapeCodes'));
+    }
+
+    toggleEnableColors() {
+        this.$container.toggleClass('log-view-enable-colors', this.settings.get<boolean>('enableColors'));
     }
 
     createLogEntrySpan(inner_html: string) {
-        return this.createSpan(inner_html, this.logEntryClass);
+        return Utils.createSpan(inner_html, this.logEntryClass);
     }
 
     createLogNoticeSpan(inner_html: string) {
-        return this.createSpan(inner_html, this.logNoticeClass);
+        return Utils.createSpan(inner_html, this.logNoticeClass);
     }
 
     writeSpans(spans: HTMLElement[]) {
@@ -79,14 +82,19 @@ class LogView {
         // Just a list of lines that we write to the logview.
         if (Array.isArray(message)) {
             for (var i=0; i<message.length; i++) {
-                var line = Utils.escapeHtml(message[i]);
-                line = line.replace(/\n$/, '');
+                var line = message[i].replace(/\n$/, '');
 
                 // TODO: Need a css only solution.
                 if (line === '') {
-                    line = '&zwnj;';
+                    spans.push(this.createLogEntrySpan('&zwnj;'));
+                    continue;
                 }
-                spans.push(this.createLogEntrySpan(line));
+                let parsedSpans = this.parser.parseLine(line);
+                let entrySpan = this.createLogEntrySpan('');
+                parsedSpans.forEach(function(span) {
+                    entrySpan.appendChild(span);
+                });
+                spans.push(entrySpan);
             }
         } else if ('err' in message) {
             for (var i=0; i<message['err'].length; i++) {
